@@ -49,6 +49,7 @@ stof_doctrine_extensions:
             sluggable: true
             timestampable: true
             softdeleteable: true
+            sortable: true
 
 avalanche_imagine:
     source_root:  %kernel.root_dir%/../public

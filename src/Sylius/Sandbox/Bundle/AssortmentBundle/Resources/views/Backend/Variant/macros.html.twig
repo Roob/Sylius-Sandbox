@@ -4,6 +4,7 @@
     <thead>
         <tr>
             <th>#id</th>
+            <th>pos</th>
             <th>SKU</th>
             <th>updated at</th>
             <th>option set</th>
@@ -15,6 +16,7 @@
     {% for variant in variants %}
         <tr>
             <td>{{ variant.id }}</td>
+            <td>{{ variant.position }}</td>
             <td>{{ variant.sku }}</td>
             <td>{{ variant.updatedAt|date }}</td>
             <td>
@@ -26,18 +28,33 @@
             </td>
             <td>{{ variant.price }} &euro;</td>
             <td>
-                <div class="btn-group pull-right">
-                    <a href="{{ path('sylius_assortment_backend_variant_show', {'id': variant.id}) }}" class="btn">
-                       <i class="icon-book"></i> {{ 'show'|trans({}, 'SandboxCoreBundle') }}
-                    </a>
-                    <a href="{{ path('sylius_assortment_backend_variant_update', {'id': variant.id}) }}" class="btn">
-                       <i class="icon-pencil"></i> {{ 'update'|trans({}, 'SandboxCoreBundle') }}
-                    </a>
-                    <a href="{{ path('sylius_assortment_backend_variant_delete', {'id': variant.id}) }}" class="btn btn-danger confirmer"
-                        data-confirmer-question="{{ 'confirmer.q.variant.delete'|trans({}, 'SandboxCoreBundle') }}"
-                    >
-                        <i class="icon-remove icon-white"></i> {{ 'delete'|trans({}, 'SandboxCoreBundle') }}
-                    </a>
+                <div class="btn-toolbar pull-right">
+                    <div class="btn-group">
+                        {% if loop.first %}
+                        <a class="btn disabled">&uarr;</a>
+                        {% else %}
+                        <a href="{{ path('sylius_assortment_backend_variant_move_up', {'id': variant.id}) }}" class="btn">&uarr;</a>
+                        {% endif %}
+
+                        {% if loop.last %}
+                        <a class="btn disabled">&darr;</a>
+                        {% else %}
+                        <a href="{{ path('sylius_assortment_backend_variant_move_down', {'id': variant.id}) }}" class="btn">&darr;</a>
+                        {% endif %}
+                    </div>
+                    <div class="btn-group">
+                        <a href="{{ path('sylius_assortment_backend_variant_show', {'id': variant.id}) }}" class="btn">
+                           <i class="icon-book"></i> {{ 'show'|trans({}, 'SandboxCoreBundle') }}
+                        </a>
+                        <a href="{{ path('sylius_assortment_backend_variant_update', {'id': variant.id}) }}" class="btn">
+                           <i class="icon-pencil"></i> {{ 'update'|trans({}, 'SandboxCoreBundle') }}
+                        </a>
+                        <a href="{{ path('sylius_assortment_backend_variant_delete', {'id': variant.id}) }}" class="btn btn-danger confirmer"
+                            data-confirmer-question="{{ 'confirmer.q.variant.delete'|trans({}, 'SandboxCoreBundle') }}"
+                        >
+                            <i class="icon-remove icon-white"></i> {{ 'delete'|trans({}, 'SandboxCoreBundle') }}
+                        </a>
+                    </div>
                 </div>
             </td>
         </tr>

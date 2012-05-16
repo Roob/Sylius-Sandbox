@@ -22,6 +22,9 @@
             <join-column name="variant_id" referenced-column-name="id" />
         </many-to-one>
         <one-to-many field="variants" target-entity="Sylius\Sandbox\Bundle\AssortmentBundle\Entity\Variant\Variant" mapped-by="product">
+            <order-by>
+                <order-by-field name="position" direction="ASC" />
+            </order-by>
             <cascade>
                 <cascade-all />
             </cascade>
